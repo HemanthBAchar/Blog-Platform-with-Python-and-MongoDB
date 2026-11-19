@@ -1,0 +1,44 @@
+erDiagram
+    ROLES ||--o{ USERS : "assigned to"
+    COUNTRIES ||--o{ USERS : "lives in"
+    USERS ||--o{ SUBSCRIPTIONS : "subscribes"
+    PLANS ||--o{ SUBSCRIPTIONS : "priced by"
+    USERS ||--o{ USER_LOGINS : "logs in"
+    USERS ||--o{ ACCOUNT_AUDIT_LOG : "audited"
+    ROLES {
+        smallint role_id PK
+        varchar role_name UK
+    }
+    COUNTRIES {
+        char2 country_code PK
+        varchar country_name UK
+    }
+    PLANS {
+        smallint plan_id PK
+        varchar plan_name UK
+        numeric monthly_price
+    }
+    USERS {
+        int user_id PK
+        varchar username UK
+        varchar email UK
+        smallint role_id FK
+        char2 country_code FK
+        boolean is_active
+    }
+    SUBSCRIPTIONS {
+        int subscription_id PK
+        int user_id FK
+        smallint plan_id FK
+        varchar status
+    }
+    USER_LOGINS {
+        bigint login_id PK
+        int user_id FK
+        timestamp login_at
+    }
+    ACCOUNT_AUDIT_LOG {
+        bigint log_id PK
+        int user_id FK
+        varchar action
+    }
